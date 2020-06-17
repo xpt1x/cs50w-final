@@ -1,0 +1,60 @@
+{% extends 'lnf/base.html' %}
+{% block title %} 
+    Items Listings
+{% endblock %}
+{%block tt%}
+{% if not items %}
+No Items!
+{%endif%}
+{%endblock%}
+{% block body %}
+<div style="padding-bottom: 2%;" class="btn-group" role="group">
+    <a href="{% url 'lostitems' %}" class="btn btn-outline-danger">Lost Items</a>
+    <a href="{% url 'listings' %}" class="btn btn-outline-primary">All</a>
+    <a href="{% url 'founditems' %}" class="btn btn-outline-success">Found Items</a>
+</div>
+<form method="POST" action="{% url 'listings' %}" style="float: right;" class="form-inline">
+    {% csrf_token %}
+    <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+</form>
+<div class="row row-cols-1 row-cols-md-3">
+    {% for item in items %}
+    <div class="col mb-4">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+            {%if item.image %}
+              <div class="col-md-4">
+                <img src="{{item.image.url}}" class="card-img">
+              </div>
+            {%endif%}
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><strong>{{item.name}}</strong> [ <span class="text-muted">{{item.status}}</span> ]</h5>
+                  <p class="card-text">
+                    Added by: {{item.uploader}} <br>
+                    Color: {{item.color}} <br>
+                    Location: {{item.location}}
+                    {% if item.brand %}
+                    <br>Brand: {{item.brand}}
+                    {%endif%}
+                    {% if item.contents %}
+                    <br>Contents: [ {{item.contents}} ]
+                    {%endif%}
+                   </p>
+                    <button class="btn btn-primary" data-toggle="collapse" data-target="#collapse-{{item.pk}}" aria-expanded="false" aria-controls="collapse-{{item.pk}}">Contact</button>
+                  </div>
+                  <div class="collapse" id="collapse-{{item.pk}}">
+                    <div class="card card-body">
+                      Email: {{item.uploader.email}}<br>
+                      Contact: {{item.uploader.profile.contact}}
+                    </div>
+                  </div>
+              </div>
+              
+            </div>
+          </div>
+    </div>
+    {%endfor%}
+</div>
+{%endblock%}

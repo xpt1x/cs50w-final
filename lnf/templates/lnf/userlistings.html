@@ -1,0 +1,47 @@
+{% extends 'lnf/base.html' %}
+{% block title %}User Listings{%endblock%}
+{%block tt%} 
+  {% if empty %}
+    No listings<a href="{% url 'home' %}" class="badge badge-secondary"> Home</a>
+  {% else %}
+  {{request.user}}'s item listings 
+  {%endif%}
+{%endblock%}
+{% block body %}
+{% if not empty %}
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Item Name</th>
+        <th scope="col">Color</th>
+        <th scope="col">Date</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in items %}
+        <tr>
+            <th scope="row">
+            {{item.name}}
+            {% if item.brand %}
+            <span class="text-muted">[{{item.brand}}]</span>
+            {%endif%}
+            {% if item.contents %}
+            <span class="text-muted">[{{item.contents}}]</span>
+            {%endif%}
+            </th>
+            <td>{{item.color}}</td>
+            <td>{{item.date}}</td>
+            <td><a href="{% url 'remove_item' item.pk %}">Remove item</a></td>
+            {% if item.status == 'lost' %}
+            <td><a href="{% url 'match' item.pk %}">Find matches</a></td>
+            {%else%}
+            <td></td>
+            {%endif%}
+        </tr>
+    {%endfor%}
+    </tbody>
+</table>
+{%endif%}
+{%endblock%}

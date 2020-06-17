@@ -1,0 +1,77 @@
+{% extends 'lnf/base.html' %}
+{% block title %} 
+    Matching Items
+{% endblock %}
+{%block tt%}
+{% if not items %}
+Uhh! We couldn't find any matching items
+{%else%}
+System has found some matching items
+{%endif%}
+{%endblock%}
+{% block body %}
+<div class="row row-cols-1 row-cols-md-3">
+    {% for item in items %}
+    <!-- <div class="col mb-4">
+        <div class="card h-100"">
+            <div class="card-body">
+                <h5 class="card-title"><strong>{{item.name}}</strong></h5>
+                <p class="card-text">
+                    Added by: {{item.uploader}} <br>
+                    Color: {{item.color}} <br>
+                    Found Location: {{item.location}}
+                    {% if item.brand %}
+                    <br>Brand: {{item.brand}}
+                    {%endif%}
+                    {% if item.contents %}
+                    <br>Contents: {{item.contents}}
+                    {%endif%}
+                </p>
+                <button class="btn btn-primary" data-toggle="collapse" data-target="#collapse-{{item.pk}}" aria-expanded="false" aria-controls="collapse-{{item.pk}}">Contact</button>
+              </div>
+              <div class="collapse" id="collapse-{{item.pk}}">
+                <div class="card card-body">
+                  Email: {{item.uploader.email}}<br>
+                  Contact: {{item.uploader.profile.contact}}
+                </div>
+              </div>
+            </div>
+        </div> -->
+        <div class="col mb-4">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                {%if item.image %}
+                  <div class="col-md-4">
+                    <img src="{{item.image.url}}" class="card-img">
+                  </div>
+                {%endif%}
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title"><strong>{{item.name}}</strong></h5>
+                      <p class="card-text">
+                        Added by: {{item.uploader}} <br>
+                        Color: {{item.color}} <br>
+                        Found Location: {{item.location}}
+                        {% if item.brand %}
+                        <br>Brand: {{item.brand}}
+                        {%endif%}
+                        {% if item.contents %}
+                        <br>Contents: [ {{item.contents}} ]
+                        {%endif%}
+                       </p>
+                        <button class="btn btn-primary" data-toggle="collapse" data-target="#collapse-{{item.pk}}" aria-expanded="false" aria-controls="collapse-{{item.pk}}">Contact</button>
+                      </div>
+                      <div class="collapse" id="collapse-{{item.pk}}">
+                        <div class="card card-body">
+                          Email: {{item.uploader.email}}<br>
+                          Contact: {{item.uploader.profile.contact}}
+                        </div>
+                      </div>
+                  </div>
+                  
+                </div>
+              </div>
+        </div>
+    {%endfor%}
+</div>
+{%endblock%}

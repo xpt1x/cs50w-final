@@ -1,0 +1,161 @@
+{% extends 'lnf/base.html' %}
+{% block title %} 
+    Home
+{% endblock %}
+{% block body %}
+<a href="{% url 'listings' %}" class="btn btn-outline-info btn-lg btn-block">View all Listings</a>
+<br/><br/>
+<button type="button" class="btn btn-outline-danger btn-lg btn-block" data-toggle="modal" data-target="#LostModal">
+  Lost something? Report here
+</button>
+<button type="button" class="btn btn-outline-success btn-lg btn-block" data-toggle="modal" data-target="#FoundModal">
+    Found something? Report here
+</button>
+
+  <!-- Modal -->
+<div class="modal fade" id="LostModal" tabindex="-1" role="dialog" aria-labelledby="LostModalTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="LostModalTitle">Report Lost Item</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form method="POST" action="{% url 'report' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input class="form-control" type="hidden" name="inputType" value="lost">
+            <div class="form-group row">
+              <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+              <div class="col-sm-10">
+                <input type="text" name="inputName" class="form-control" id="inputName" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputColor" class="col-sm-2 col-form-label">Color</label>
+              <div class="col-sm-10">
+                <input type="text" name="inputColor" class="form-control" id="inputColor" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputLocation" class="col-sm-2 col-form-label">Location</label>
+              <div class="col-sm-10">
+                <input type="text" name="inputLocation" class="form-control" id="inputLocation" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+              <div class="col-sm-10">
+                <input type="date" name="inputDate" class="form-control" id="inputDate" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputBrand" class="col-sm-2 col-form-label">Brand
+                  <small class="text-muted">Optional</small>
+                </label>
+                <div class="col-sm-10">
+                  <input type="text" name="inputBrand" class="form-control" id="inputBrand">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputContents" class="col-sm-2 col-form-label">Contents
+                    <small class="text-muted">Optional</small>
+                </label>
+                <div class="col-sm-10">
+                  <input type="text" name="inputContents" class="form-control" id="inputContents">
+                </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputImage" class="col-sm-2 col-form-label">Image
+                  <small class="text-muted">Optional</small>
+              </label>
+              <div class="col-sm-10">
+                <input type="file" name="inputImage" class="form-control-file" id="inputImage">
+            </div>
+          </div>
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Report</button>
+              </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="FoundModal" tabindex="-1" role="dialog" aria-labelledby="FoundModalTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="FoundModalTitle">Report Found Item</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form method="POST" action="{% url 'report' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input class="form-control" type="hidden" name="inputType" value="found">
+            <div class="form-group row">
+              <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+              <div class="col-sm-10">
+                <input type="text" name="inputName" class="form-control" id="inputName" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputColor" class="col-sm-2 col-form-label">Color</label>
+              <div class="col-sm-10">
+                <input type="text" name="inputColor" class="form-control" id="inputColor" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputLocation" class="col-sm-2 col-form-label">Location</label>
+              <div class="col-sm-10">
+                <input type="text" name="inputLocation" class="form-control" id="inputLocation" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+              <div class="col-sm-10">
+                <input type="date" name="inputDate" class="form-control" id="inputDate" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputBrand" class="col-sm-2 col-form-label">Brand
+                  <small class="text-muted">Optional</small>
+                </label>
+                <div class="col-sm-10">
+                  <input type="text" name="inputBrand" class="form-control" id="inputBrand">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputContents" class="col-sm-2 col-form-label">Contents
+                    <small class="text-muted">Optional</small>
+                </label>
+                <div class="col-sm-10">
+                  <input type="text" name="inputContents" class="form-control" id="inputContents">
+                </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputImage" class="col-sm-2 col-form-label">Image
+                  <small class="text-muted">Optional</small>
+              </label>
+              <div class="col-sm-10">
+                <input type="file" name="inputImage" class="form-control-file" id="inputImage">
+            </div>
+          </div>
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Report</button>
+              </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+{%endblock%}
